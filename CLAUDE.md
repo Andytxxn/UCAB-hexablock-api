@@ -1,6 +1,6 @@
 # HexaBlock Suite — API (backend)
 
-REST API of HexaBlock Suite (UCAB, Desarrollo de Software, due 2026-12-14): users, progress, scores and
+REST API of HexaBlock Suite: users, progress, scores and
 level definitions for the four variants (Hexa Lines, Hexa Fit, Hexa Sort, Hexa Merge).
 The client lives in the sibling repository `UCAB-hexablock-game`.
 
@@ -10,7 +10,7 @@ The client lives in the sibling repository `UCAB-hexablock-game`.
   until the team records the decision here. If a task needs it, stop and ask.
 - Commands (fill in once the stack exists): install `TBD` · lint `TBD` · test `TBD` · run `TBD`
 
-## Rules from the project statement (all graded)
+## Engineering rules
 
 - **Clean Architecture**, four layers, dependencies point inward only. Domain and use cases import nothing
   from frameworks, the database or HTTP.
@@ -33,17 +33,17 @@ The client lives in the sibling repository `UCAB-hexablock-game`.
 - Branches: `<type>/<kebab-case>`, type in `feature|fix|docs|chore|refactor|test|ci`. Start with `/start-task`.
 - Commits: Conventional Commits, `type(scope): description` — English, lowercase start, no final period,
   at most 100 characters. Typical scopes: `auth`, `progress`, `leaderboard`, `levels`, `ci`, `readme`.
-- **Small, frequent commits**: one logical change each. The history is graded per member, so never bundle
+- **Small, frequent commits**: one logical change each. Never bundle
   unrelated work and never commit on behalf of another member.
 - Finish with `/open-pr`: pull request into `develop`.
 
-## AI usage (statement section 7 — undocumented AI use is treated as plagiarism)
+## AI usage (must always be documented)
 
 - Every prompt is appended automatically to `docs/ai-usage/prompts/<member>.md`. Never edit or delete
   entries there, and stage that file with every commit.
 - Significant uses get a curated entry in `AI_USAGE.md` (`/open-pr` drafts them). "Team modifications" and
   "Lessons learned" come from the human: ask, never invent.
 - Architecture, generics, patterns and principles are **team decisions**: lay out options and trade-offs,
-  do not decide silently. The team must be able to explain every line in the defense.
+  do not decide silently. Every team member must be able to explain any line of the codebase.
 - Generated code ships with tests. Cite non-trivial algorithms or external sources in a comment.
 - Never put credentials, API keys or user data in prompts, code or logs.
