@@ -21,10 +21,35 @@ The client lives in the sibling repository `UCAB-hexablock-game`.
 - **SOLID and GoF patterns**: each one used must be documentable in the README with a real code reference.
 - **AOP without AOP libraries**: decorators or proxies over use cases (logging, error handling, auth, cache).
   No logger calls inside business code.
-- **Tests**: unit (isolated, fakes or stubs for ports) and integration (in-memory database, HTTP endpoints
-  including filtering by `gameId`). AAA structure. Names: `should_[expected_result]_when_[condition]`.
-  Test behaviour, not implementation details.
+- **Tests**: TDD, see "Testing" below.
 - Code, comments, commits, pull requests and the README are written **in English**.
+
+## Testing (TDD, statement section 3.6)
+
+- **TDD is mandatory.** Red → green → refactor: write a failing test that states the expected behaviour, run
+  it and see it fail for the right reason, write the minimum code to pass, then refactor with the suite green.
+  No production code without a test that required it. Bug fixes start with a test that reproduces the bug.
+- **AAA** in every test: `// Arrange`, `// Act`, `// Assert` blocks, one action per test.
+- **Names**: `should_[expected_result]_when_[condition]`, e.g.
+  `should_clear_three_lines_when_piece_completes_all_axes`.
+- **Behaviour, not implementation.** Assert on outputs, returned state, persisted data, HTTP responses or what
+  the user sees, through the public API of the unit. Do not assert on private methods, internal fields, call
+  order or how many times a collaborator was called, unless that interaction *is* the behaviour (e.g. a
+  cache decorator must not hit the repository twice). A refactor that keeps behaviour must not break tests.
+- **Test doubles only at the boundaries** (ports: repositories, network, clock, random generator with a fixed
+  seed). Prefer hand-written fakes over mocking libraries; never mock the unit under test or value objects.
+- Tests are deterministic and independent: no real network, no shared mutable state, no order dependence.
+- All suites run in CI on every pull request; a red suite blocks the merge.
+
+Required suites:
+
+- **Unit**: every entity, use case and service in isolation, with fakes for the ports. Includes the AOP
+  decorators (logging, error handling, auth, cache) over a fake use case.
+- **Integration**: use cases with real repositories on an in-memory database; REST endpoints through an
+  HTTP test client, including filtering by `gameId`, auth failures and error responses; save-then-load
+  progress end to end for **each** of the four variants.
+- **Contract**: provider verification of the consumer contracts published by `UCAB-hexablock-game`
+  (Pact or equivalent, https://docs.pact.io/). A change that breaks a contract fails CI.
 
 ## Git workflow (enforced by `.githooks/`, CI and branch protection)
 
