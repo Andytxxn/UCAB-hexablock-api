@@ -6,9 +6,10 @@ The client lives in the sibling repository `UCAB-hexablock-game`.
 
 ## Status
 
-- **Stack: not decided yet.** Do not scaffold a project, add dependencies or pick a language or framework
-  until the team records the decision here. If a task needs it, stop and ask.
-- Commands (fill in once the stack exists): install `TBD` · lint `TBD` · test `TBD` · run `TBD`
+- **Stack (decided 2026-11-22):** TypeScript (strict), NestJS, PostgreSQL, Drizzle ORM, JWT + argon2,
+  Swagger, Jest + supertest + PGlite, Docker Compose. Node.js 24.20, npm only.
+- Domain and use cases stay framework-free: no NestJS or Drizzle imports there.
+- Commands: install `npm ci` · lint `TBD` · test `TBD` · run `TBD`
 
 ## Engineering rules
 
